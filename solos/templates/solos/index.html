@@ -25,15 +25,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4">
-                <div class="jmad-search-result"></div>
-            </div>
-            <div class="col-sm-4">
-                <div class="jmad-search-result"></div>
-            </div>
-            <div class="col-sm-4">
-                <div class="jmad-search-result"></div>
-            </div>
+            {% for solo in solos %}
+                <div class="col-sm-4">
+                    <div class="jmad-search-result">
+                        {{ solo.track }}: {{ solo.artist }} on {{ solo.instrument }}
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
