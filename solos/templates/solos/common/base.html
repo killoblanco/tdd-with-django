@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% block css %}
+        {% include "solos/common/css.html" %}
+    {% endblock %}
+</head>
+<body>
+{% include "solos/common/navbar.html" %}
+{% block content %}
+
+{% endblock %}
+{% block js %}
+    {% include "solos/common/js.html" %}
+{% endblock %}
+</body>
+</html>

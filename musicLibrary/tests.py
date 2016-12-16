@@ -21,10 +21,24 @@ class StudentTestCase(LiveServerTestCase):
         brand_element = self.browser.find_element_by_css_selector('.navbar-brand')
         # He sees the inputs of the search form, including
         # labels and placeholders.
-        # He types in the name of his instrument and submits
-        # it.
+        instrument_input = self.browser.find_element_by_css_selector('input#jmad-instrument')
+        self.assertIsNotNone(self.browser.find_element_by_css_selector('label[for="jmad-instrument"]'))
+        self.assertEqual(instrument_input.get_attribute('placeholder'), 'i.e. trumpet')
+        artist_input = self.browser.find_element_by_css_selector('input#jmad-artist')
+        self.assertIsNotNone(self.browser.find_element_by_css_selector('label[for="jmad-artist"]'))
+        self.assertEqual(artist_input.get_attribute('placeholder'), 'i.e. Davis')
+        # He types in the name of his instrument and submits it.
+        instrument_input.send_keys('saxophone')
+        instrument_input.submit()
         # He sees too many search results...
+        search_result = self.browser.find_elements_by_css_selector('.jmad-search-result')
+        self.assertGreater(len(search_result), 2)
         # ...so he adds an artist to his search query and
+        second_artist_input = self.browser.find_element_by_css_selector('input#jmad-artist')
+        second_artist_input.send_keys('Cannonball Adderley')
+        second_artist_input.submit()
+        second_search_result = self.browser.find_elements_by_css_selector('.jmad-search-result')
+        self.assertEqual(len(second_search_result), 2)
         # gets a more manageable list.
         # He clicks on a search result.
         # The solo page has the title, artist and album for

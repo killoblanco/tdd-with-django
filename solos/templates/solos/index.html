@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<a href="#" class="navbar-brand">MusicLibrary</a>
-</body>
-</html>
+{% extends "solos/common/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <form action="#">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="jmad-instrument">Instrument</label>
+                                <input type="text" class="form-control" id="jmad-instrument" name="instrument"
+                                       placeholder="i.e. trumpet">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="jmad-artist">Artist</label>
+                            <input type="text" class="form-control" id="jmad-artist" name="artist" placeholder="i.e. Davis">
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="jmad-search-result"></div>
+            </div>
+            <div class="col-sm-4">
+                <div class="jmad-search-result"></div>
+            </div>
+            <div class="col-sm-4">
+                <div class="jmad-search-result"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
