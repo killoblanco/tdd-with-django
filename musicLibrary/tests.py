@@ -3,8 +3,9 @@ from selenium import webdriver
 
 
 class StudentTestCase(LiveServerTestCase):
+
     def setUp(self):
-        self.browser = webdriver.Chrome()
+        self.browser = webdriver.Chrome('/usr/local/bin/chromedriver')
         self.browser.implicitly_wait(2)
 
     def test_student_find_solos(self):
@@ -17,6 +18,7 @@ class StudentTestCase(LiveServerTestCase):
         home_page = self.browser.get(self.live_server_url + '/')
         # He knows he's in the right place because he can see
         # the name of the site in the heading.
+        brand_element = self.browser.find_element_by_css_selector('.navbar-brand')
         # He sees the inputs of the search form, including
         # labels and placeholders.
         # He types in the name of his instrument and submits
