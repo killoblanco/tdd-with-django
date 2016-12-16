@@ -5,7 +5,7 @@ from selenium import webdriver
 class StudentTestCase(LiveServerTestCase):
 
     def setUp(self):
-        self.browser = webdriver.Chrome('/usr/local/bin/chromedriver')
+        self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(2)
 
     def test_student_find_solos(self):
