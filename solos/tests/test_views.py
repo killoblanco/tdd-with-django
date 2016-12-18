@@ -1,7 +1,7 @@
 from django.db.models import QuerySet
 from django.test import TestCase, RequestFactory
 
-from solos.views import index
+from solos.views import index, SoloDetailView
 from solos.models import Solo
 
 
@@ -34,8 +34,29 @@ class IndexViewTestCase(TestCase):
         Test that the index view will attempt to return
         Solos if query parameters exist
         """
-        response = self.client.get('/', {'instrument':'drums'})
+        response = self.client.get('/', {'instrument': 'drums'})
         solos = response.context['solos']
         self.assertIs(type(solos), QuerySet)
         self.assertEqual(len(solos), 1)
         self.assertEqual(solos[0].artist, 'Rich')
+
+
+class SoloViewTestCase(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    def test_basic(self):
+        """
+        Test that the solos view returns a 200 response, uses
+        the correct template, and has the correct context
+        """
+        request = self.factory.get('/solos/1/')
+        response = SoloDetailView.as_view() (
+            request,
+            self.drum_solo.pk
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context_data[0].artist, 'Rich')
+        with self.assertTemplateUsed('solos/detail.html'):
+            response.render()

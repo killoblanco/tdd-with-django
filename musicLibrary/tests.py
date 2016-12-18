@@ -7,7 +7,7 @@ from solos.models import Solo
 class StudentTestCase(LiveServerTestCase):
 
     def setUp(self):
-        self.browser = webdriver.Chrome()
+        self.browser = webdriver.Chrome('/usr/local/bin/chromedriver')
         self.browser.implicitly_wait(2)
         self.solo1 = Solo.objects.create(
             instrument="saxophone",
@@ -63,6 +63,7 @@ class StudentTestCase(LiveServerTestCase):
         second_search_result[0].click()
         # The solo page has the title, artist and album for
         # this particular solo.
+        import pdb;pdb.set_trace()
         self.assertEqual(self.browser.current_url, '{}/solos/2'.format(self.live_server_url))
         self.assertEqual(self.browser.find_element_by_css_selector('#jmad-artist').text, 'Cannonball Adderley')
         self.assertEqual(self.browser.find_element_by_css_selector('#jmad-album').text, 'Kind of Blue')
