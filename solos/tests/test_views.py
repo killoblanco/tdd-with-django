@@ -5,6 +5,25 @@ from solos.views import index, SoloDetailView
 from solos.models import Solo
 
 
+class SolosBaseTestCase(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.drum_solo = Solo.objects.create(
+            instrument='drums',
+            artist='Rich',
+            track='Bugle Call Rag'
+        )
+        cls.sax_solo = Solo.objects.create(
+            instrument='saxophone',
+            artist='Coltrane',
+            track='Mr. PC'
+        )
+
+
 class IndexViewTestCase(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
@@ -51,7 +70,7 @@ class SoloViewTestCase(TestCase):
         the correct template, and has the correct context
         """
         request = self.factory.get('/solos/1/')
-        response = SoloDetailView.as_view() (
+        response = SoloDetailView.as_view()(
             request,
             self.drum_solo.pk
         )
