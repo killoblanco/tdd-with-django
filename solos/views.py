@@ -24,5 +24,6 @@ def index(request):
     return render_to_response('solos/index.html', context)
 
 
-def SoloDetailView(DetailView):
-    pass
+class SoloDetailView(DetailView):
+    model = Solo
+    template_name = "solos/detail.html"

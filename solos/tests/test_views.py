@@ -27,14 +27,18 @@ class SolosBaseTestCase(TestCase):
 class IndexViewTestCase(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        self_drum_solo = Solo.objects.create(
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.drum_solo = Solo.objects.create(
             instrument='drums',
             artist='Rich',
             track='Bugle Call Rag'
         )
-        self_bass_solo = Solo.objects.create(
+        cls.sax_solo = Solo.objects.create(
             instrument='saxophone',
-            artist='Colrane',
+            artist='Coltrane',
             track='Mr. PC'
         )
 
@@ -64,6 +68,20 @@ class SoloViewTestCase(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
 
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.drum_solo = Solo.objects.create(
+            instrument='drums',
+            artist='Rich',
+            track='Bugle Call Rag'
+        )
+        cls.sax_solo = Solo.objects.create(
+            instrument='saxophone',
+            artist='Coltrane',
+            track='Mr. PC'
+        )
+
     def test_basic(self):
         """
         Test that the solos view returns a 200 response, uses
@@ -72,10 +90,10 @@ class SoloViewTestCase(TestCase):
         request = self.factory.get('/solos/1/')
         response = SoloDetailView.as_view()(
             request,
-            self.drum_solo.pk
+            pk=self.drum_solo.pk
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context_data[0].artist, 'Rich')
+        self.assertEqual(response.context_data['solo'].artist, 'Rich')
         with self.assertTemplateUsed('solos/detail.html'):
             response.render()
