@@ -28,7 +28,9 @@
             {% for solo in solos %}
                 <div class="col-sm-4">
                     <div class="jmad-search-result">
-                        {{ solo.track }}: {{ solo.artist }} on {{ solo.instrument }}
+                        <a href="{% url 'solos:detail' solo.pk %}">
+                            {{ solo.track }}: {{ solo.artist }} on {{ solo.instrument }}
+                        </a>
                     </div>
                 </div>
             {% endfor %}

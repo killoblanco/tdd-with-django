@@ -23,4 +23,4 @@ class SolosURLsTestCase(TestCase):
             solo_detail.func.__name__,
             'SoloDetailView'
         )
-        self.assertEqual(solo_detail.kwargs['pk'], 1)
+        self.assertEqual(solo_detail.kwargs['pk'], '1')

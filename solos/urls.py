@@ -1,7 +1,7 @@
 from django.conf.urls import url
-from . import views
+from solos.views import index, SoloDetailView
 
 urlpatterns = [
-    url(r'^$', views.index, name="index"),
-    url(r'/solos/(?P<pk>\d+)/$', views.SoloDetailView.as_view(), name="detail"),
+    url(r'^$', index, name="index"),
+    url(r'solos/(?P<pk>\d+)/$', SoloDetailView.as_view(), name="detail"),
 ]
