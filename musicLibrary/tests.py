@@ -70,11 +70,16 @@ class StudentTestCase(LiveServerTestCase):
         second_search_result[0].click()
         # The solo page has the title, artist and album for
         # this particular solo.
-        # import pdb
-        # pdb.set_trace()
-        self.assertEqual(self.browser.current_url, '{}/solos/2/'.format(self.live_server_url))
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + '/recordings/kind-of-blue/all-blues/cannonball-adderley/'
+        )
+        # he sees the artist
         self.assertEqual(self.browser.find_element_by_css_selector('#jmad-artist').text, 'Cannonball Adderley')
-        self.assertEqual(self.browser.find_element_by_css_selector('#jmad-album').text, 'Kind of Blue')
+        # the track title (with a count of solos)...
+        self.assertEqual(self.browser.find_element_by_css_selector('#jmad-track').text, 'All Blues [2 solos]')
+        # and the album title (with track count) for this solo.
+        self.assertEqual(self.browser.find_element_by_css_selector('#jmad-album').text, 'Kind of Blue [3 tracks]')
         # He also sees the start time and end time of the solo.
         self.assertEqual(self.browser.find_element_by_css_selector('#jmad-start-time').text, '2:06')
         self.assertEqual(self.browser.find_element_by_css_selector('#jmad-end-time').text, '4:01')
